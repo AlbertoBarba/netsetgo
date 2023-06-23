@@ -3,13 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"net"
 	"os"
 
-	"code.cloudfoundry.org/guardian/kawasaki/netns"
-	"github.com/teddyking/netsetgo"
-	"github.com/teddyking/netsetgo/configurer"
-	"github.com/teddyking/netsetgo/device"
+	"github.com/AlbertoBarba/netsetgo"
 )
 
 func main() {
@@ -23,35 +19,13 @@ func main() {
 	flag.IntVar(&pid, "pid", 0, "pid of a process in the container's network namespace")
 	flag.Parse()
 
-	if pid == 0 {
-		fmt.Println("ERROR - netsetgo needs a pid")
-		os.Exit(1)
-	}
-
-	bridgeCreator := device.NewBridge()
-	vethCreator := device.NewVeth()
-	netnsExecer := &netns.Execer{}
-
-	hostConfigurer := configurer.NewHostConfigurer(bridgeCreator, vethCreator)
-	containerConfigurer := configurer.NewContainerConfigurer(netnsExecer)
-	netset := netsetgo.New(hostConfigurer, containerConfigurer)
-
-	bridgeIP, bridgeSubnet, err := net.ParseCIDR(bridgeAddress)
-	check(err)
-
-	containerIP, _, err := net.ParseCIDR(containerAddress)
-	check(err)
-
-	netConfig := netsetgo.NetworkConfig{
-		BridgeName:     bridgeName,
-		BridgeIP:       bridgeIP,
-		ContainerIP:    containerIP,
-		Subnet:         bridgeSubnet,
-		VethNamePrefix: vethNamePrefix,
-	}
-
-	check(netset.ConfigureHost(netConfig, pid))
-	check(netset.ConfigureContainer(netConfig, pid))
+	check(netsetgo.ConfigureForPid(
+		pid,
+		netsetgo.SetBridgeName(bridgeName),
+		netsetgo.SetBridgeAddress(bridgeAddress),
+		netsetgo.SetVethNamePrefix(vethNamePrefix),
+		netsetgo.SetContainerAddress(containerAddress),
+	))
 }
 
 func check(err error) {

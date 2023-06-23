@@ -5,7 +5,7 @@ import (
 	"net"
 	"sync"
 
-	"github.com/teddyking/netsetgo/configurer"
+	"github.com/AlbertoBarba/netsetgo/configurer"
 )
 
 type FakeVethCreator struct {

@@ -9,7 +9,7 @@ image_resource:
 
 inputs:
 - name: netsetgo-src
-  path: src/github.com/teddyking/netsetgo
+  path: src/github.com/AlbertoBarba/netsetgo
 
 run:
-  path: src/github.com/teddyking/netsetgo/ci/scripts/test
+  path: src/github.com/AlbertoBarba/netsetgo/ci/scripts/test

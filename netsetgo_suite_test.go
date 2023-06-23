@@ -14,7 +14,7 @@ var pathToNetsetgo string
 func TestNetsetgo(t *testing.T) {
 	BeforeSuite(func() {
 		var err error
-		pathToNetsetgo, err = gexec.Build("github.com/teddyking/netsetgo/cmd")
+		pathToNetsetgo, err = gexec.Build("github.com/AlbertoBarba/netsetgo/cmd")
 		Expect(err).NotTo(HaveOccurred())
 	})
 

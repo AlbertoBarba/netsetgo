@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"code.cloudfoundry.org/guardian/kawasaki/netns"
-	"github.com/teddyking/netsetgo"
+	"github.com/AlbertoBarba/netsetgo/network"
 	"github.com/vishvananda/netlink"
 )
 
@@ -20,7 +20,7 @@ func NewContainerConfigurer(netnsExecer *netns.Execer) *Container {
 	}
 }
 
-func (c *Container) Apply(netConfig netsetgo.NetworkConfig, pid int) error {
+func (c *Container) Apply(netConfig network.Config, pid int) error {
 	netnsFile, err := os.Open(fmt.Sprintf("/proc/%d/ns/net", pid))
 	defer netnsFile.Close()
 	if err != nil {

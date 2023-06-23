@@ -4,14 +4,14 @@ package netsetgofakes
 import (
 	"sync"
 
-	"github.com/teddyking/netsetgo"
+	"github.com/AlbertoBarba/netsetgo"
 )
 
 type FakeConfigurer struct {
-	ApplyStub        func(netConfig netsetgo.NetworkConfig, pid int) error
+	ApplyStub        func(netConfig network.Config, pid int) error
 	applyMutex       sync.RWMutex
 	applyArgsForCall []struct {
-		netConfig netsetgo.NetworkConfig
+		netConfig network.Config
 		pid       int
 	}
 	applyReturns struct {
@@ -21,10 +21,10 @@ type FakeConfigurer struct {
 	invocationsMutex sync.RWMutex
 }
 
-func (fake *FakeConfigurer) Apply(netConfig netsetgo.NetworkConfig, pid int) error {
+func (fake *FakeConfigurer) Apply(netConfig network.Config, pid int) error {
 	fake.applyMutex.Lock()
 	fake.applyArgsForCall = append(fake.applyArgsForCall, struct {
-		netConfig netsetgo.NetworkConfig
+		netConfig network.Config
 		pid       int
 	}{netConfig, pid})
 	fake.recordInvocation("Apply", []interface{}{netConfig, pid})
@@ -42,7 +42,7 @@ func (fake *FakeConfigurer) ApplyCallCount() int {
 	return len(fake.applyArgsForCall)
 }
 
-func (fake *FakeConfigurer) ApplyArgsForCall(i int) (netsetgo.NetworkConfig, int) {
+func (fake *FakeConfigurer) ApplyArgsForCall(i int) (network.Config, int) {
 	fake.applyMutex.RLock()
 	defer fake.applyMutex.RUnlock()
 	return fake.applyArgsForCall[i].netConfig, fake.applyArgsForCall[i].pid

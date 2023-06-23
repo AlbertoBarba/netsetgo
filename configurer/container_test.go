@@ -3,8 +3,8 @@ package configurer_test
 import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	. "github.com/teddyking/netsetgo/configurer"
-	. "github.com/teddyking/netsetgo/netsetgo_suite_helpers"
+	. "github.com/AlbertoBarba/netsetgo/configurer"
+	. "github.com/AlbertoBarba/netsetgo/netsetgo_suite_helpers"
 
 	"net"
 	"os/exec"
@@ -12,7 +12,7 @@ import (
 	"code.cloudfoundry.org/guardian/kawasaki/netns"
 	"github.com/onsi/gomega/gbytes"
 	"github.com/onsi/gomega/gexec"
-	"github.com/teddyking/netsetgo"
+	"github.com/AlbertoBarba/netsetgo/network"
 )
 
 var _ = Describe("ContainerConfigurer", func() {
@@ -20,7 +20,7 @@ var _ = Describe("ContainerConfigurer", func() {
 		parentPid, pid      int
 		netnsExecer         *netns.Execer
 		containerConfigurer *Container
-		netConfig           netsetgo.NetworkConfig
+		netConfig           network.Config
 	)
 
 	BeforeEach(func() {
@@ -39,7 +39,7 @@ var _ = Describe("ContainerConfigurer", func() {
 		containerIP, net, err := net.ParseCIDR(containerAddress)
 		Expect(err).NotTo(HaveOccurred())
 
-		netConfig = netsetgo.NetworkConfig{
+		netConfig = network.Config{
 			BridgeIP:       bridgeIP,
 			ContainerIP:    containerIP,
 			Subnet:         net,

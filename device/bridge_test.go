@@ -3,7 +3,7 @@ package device_test
 import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	. "github.com/teddyking/netsetgo/device"
+	. "github.com/AlbertoBarba/netsetgo/device"
 
 	"fmt"
 	"net"

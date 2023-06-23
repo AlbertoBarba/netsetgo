@@ -3,19 +3,19 @@ package configurer_test
 import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	. "github.com/teddyking/netsetgo/configurer"
+	. "github.com/AlbertoBarba/netsetgo/configurer"
 
 	"errors"
 	"net"
 
-	"github.com/teddyking/netsetgo"
-	"github.com/teddyking/netsetgo/configurer/configurerfakes"
+	"github.com/AlbertoBarba/netsetgo/network"
+	"github.com/AlbertoBarba/netsetgo/configurer/configurerfakes"
 )
 
 var _ = Describe("Host", func() {
 	Describe("Apply", func() {
 		var (
-			netConfig         netsetgo.NetworkConfig
+			netConfig         network.Config
 			pid               int
 			fakeBridgeCreator *configurerfakes.FakeBridgeCreator
 			fakeVethCreator   *configurerfakes.FakeVethCreator
@@ -27,7 +27,7 @@ var _ = Describe("Host", func() {
 			ip, net, err := net.ParseCIDR(bridgeAddress)
 			Expect(err).NotTo(HaveOccurred())
 
-			netConfig = netsetgo.NetworkConfig{
+			netConfig = network.Config{
 				BridgeName:     "tower",
 				BridgeIP:       ip,
 				Subnet:         net,

@@ -3,7 +3,7 @@ package configurer
 import (
 	"net"
 
-	"github.com/teddyking/netsetgo"
+	"github.com/AlbertoBarba/netsetgo/network"
 )
 
 //go:generate counterfeiter . BridgeCreator
@@ -30,7 +30,7 @@ func NewHostConfigurer(bridgeCreator BridgeCreator, vethCreator VethCreator) *Ho
 	}
 }
 
-func (h *Host) Apply(netConfig netsetgo.NetworkConfig, pid int) error {
+func (h *Host) Apply(netConfig network.Config, pid int) error {
 	bridge, err := h.BridgeCreator.Create(netConfig.BridgeName, netConfig.BridgeIP, netConfig.Subnet)
 	if err != nil {
 		return err

@@ -3,18 +3,19 @@ package netsetgo_test
 import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	. "github.com/teddyking/netsetgo"
+	. "github.com/AlbertoBarba/netsetgo"
+	. "github.com/AlbertoBarba/netsetgo/network"
 
 	"errors"
 
-	"github.com/teddyking/netsetgo/netsetgofakes"
+	"github.com/AlbertoBarba/netsetgo/netsetgofakes"
 )
 
 var _ = Describe("netsetgo", func() {
 	var (
 		fakeHostConfigurer      *netsetgofakes.FakeConfigurer
 		fakeContainerConfigurer *netsetgofakes.FakeConfigurer
-		netConfig               NetworkConfig
+		netConfig               network.Config
 		pid                     int
 		netset                  *Netset
 	)
@@ -22,7 +23,7 @@ var _ = Describe("netsetgo", func() {
 	BeforeEach(func() {
 		fakeHostConfigurer = &netsetgofakes.FakeConfigurer{}
 		fakeContainerConfigurer = &netsetgofakes.FakeConfigurer{}
-		netConfig = NetworkConfig{BridgeName: "tower"}
+		netConfig = network.Config{BridgeName: "tower"}
 		pid = 100
 
 		netset = New(fakeHostConfigurer, fakeContainerConfigurer)

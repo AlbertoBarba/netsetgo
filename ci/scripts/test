@@ -5,6 +5,6 @@ set -e -x
 export PATH=$PATH:/go/bin
 export GOPATH=$GOPATH:$(pwd)
 
-cd src/github.com/teddyking/netsetgo
+cd src/github.com/AlbertoBarba/netsetgo
 
 ginkgo -r -keepGoing
